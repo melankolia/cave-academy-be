@@ -7,11 +7,11 @@ export class UserRepository {
   async findAll(): Promise<User[]> {
     const users = await db.query.usersTable.findMany();
     return users.map(user => ({
-      id: user.id as number,
-      name: user.name as string,
-      role: user.role as string,
-      password: user.password as string
-    }));
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      password: user.password
+    } as User));
   }
 
   async findById(id: number): Promise<User | null> {
@@ -22,11 +22,11 @@ export class UserRepository {
     if (!user) return null;
     
     return {
-      id: user.id as number,
-      name: user.name as string,
-      role: user.role as string,
-      password: user.password as string
-    };
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      password: user.password
+    } as User;
   }
 
   async create(data: CreateUserDTO): Promise<User> {
@@ -37,11 +37,11 @@ export class UserRepository {
     
     const user = result[0];
     return {
-      id: user.id as number,
-      name: user.name as string,
-      role: user.role as string,
-      password: user.password as string
-    };
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      password: user.password
+    } as User;
   }
 
   async update(id: number, data: UpdateUserDTO): Promise<User> {
@@ -53,11 +53,11 @@ export class UserRepository {
     
     const user = result[0];
     return {
-      id: user.id as number,
-      name: user.name as string,
-      role: user.role as string,
-      password: user.password as string
-    };
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      password: user.password
+    } as User;
   }
 
   async delete(id: number): Promise<void> {
