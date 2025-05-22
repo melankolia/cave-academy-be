@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { usersTable, usersRelations } from '../schemas/user';
 import { newsTable, newsRelations } from '../schemas/news';
+import { eventTable, eventRelations } from '../schemas/event';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
@@ -12,8 +13,10 @@ const pool = new Pool({
 const schema = {
   usersTable,
   newsTable,
+  eventTable,
   usersRelations,
-  newsRelations
+  newsRelations,
+  eventRelations
 };
 
 const db = drizzle(pool, { schema });

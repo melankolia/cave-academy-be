@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import fs from "fs";
+import { createWriteStream } from "fs";
 import logger from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/user";
 import authRouter from "./routes/auth";
 import newsRouter from "./routes/news";
+import eventRouter from "./routes/event";
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use(cookieParser());
 app.use(helmet.xssFilter());
 
 // Init Morgan
-const accessLogStream = fs.createWriteStream("access.log", {
+const accessLogStream = createWriteStream("access.log", {
   flags: "a",
 });
 
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/news', newsRouter);
+app.use('/api/events', eventRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
