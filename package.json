@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.ts"
   },
   "author": "Ageng Setyo Nugroho",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "drizzle-orm": "^0.43.1",
+    "express": "^5.1.0",
     "pg": "^8.16.0"
   },
   "devDependencies": {
     "@types/pg": "^8.15.2",
     "drizzle-kit": "^0.31.1",
-    "tsx": "^4.19.4"
+    "nodemon": "^3.1.10",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

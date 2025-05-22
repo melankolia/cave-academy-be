@@ -1,41 +1,19 @@
-import 'dotenv/config';
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { eq } from 'drizzle-orm';
-import { usersTable } from './repositories/user';
-  
-const db = drizzle(process.env.DATABASE_URL!);
+import express from "express";
+import userRouter from "./routes/user";
 
-async function main() {
-  const user: typeof usersTable.$inferInsert = {
-    name: 'John',
-    age: 30,
-    email: 'john@example.com',
-  };
+const app = express();
 
-  await db.insert(usersTable).values(user);
-  console.log('New user created!')
+// Middleware for parsing JSON bodies
+app.use(express.json());
 
-  const users = await db.select().from(usersTable);
-  console.log('Getting all users from the database: ', users)
-  /*
-  const users: {
-    id: number;
-    name: string;
-    age: number;
-    email: string;
-  }[]
-  */
+// Root route
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
-  await db
-    .update(usersTable)
-    .set({
-      age: 31,
-    })
-    .where(eq(usersTable.email, user.email));
-  console.log('User info updated!')
+// User routes
+app.use('/api/users', userRouter);
 
-  await db.delete(usersTable).where(eq(usersTable.email, user.email));
-  console.log('User deleted!')
-}
-
-main();
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
