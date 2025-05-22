@@ -1,28 +1,43 @@
-import Bcrypt from "../utils/bcrypt";
-import UserService from "../services/user";
+import { Request, Response } from 'express';
+import AuthService from "../services/auth.service";
+import { handleError } from '../utils/errorHandler';
 
 class AuthController {
-    private bcrypt: Bcrypt;
-    private userService: UserService;
+    private authService: AuthService;
 
-    constructor() {
-        this.bcrypt = new Bcrypt();
-        this.userService = new UserService();
+    constructor(authService: AuthService) {
+        this.authService = authService;
     }
 
-    async login(payload: { name: string, password: string }) {
-        const user = await this.userService.getUserByName(payload.name);
-        if (!user) {
-            throw new Error("User not found");
-        }
+    async login(req: Request, res: Response) {
+        try {
+            const { name, password } = req.body;
 
-        const isPasswordValid = await this.bcrypt.verifyPassword(payload.password, user.password);
-        if (!isPasswordValid) {
-            throw new Error("Invalid password");
+            if (!name || !password) {
+                return res.status(400).json({
+                    status: 'error',
+                    message: 'Name and password are required'
+                });
+            }
+
+            const token = await this.authService.login(name, password);
+
+            // Set HttpOnly cookie
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false, // Only over HTTPS in production
+                sameSite: 'Strict',
+                maxAge: 60 * 60 * 1000 // 1 hour
+            });
+
+            return res.status(200).json({
+                status: 'success',
+                message: 'Logged in'
+            });
+        } catch (error) {
+            handleError(error as Error, res);
         }
-        
-        return user;
-    }
+    };
 }
 
 export default AuthController;

@@ -1,27 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../services/user.service';
+import UserService from '../services/user.service';
 import { CreateUserDTO, UpdateUserDTO } from '../models/user';
-import { AppError } from '../utils/errors';
+import { handleError } from '../utils/errorHandler';
 
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+class UserController {
+  private userService: UserService;
 
-  handleError(error: Error, res: Response) {
-    if (error instanceof AppError) {
-      return res.status(error.statusCode).json({
-        status: error.status,
-        message: error.message
-      });
-    }
-
-    console.error('Unexpected error:', error);
-    return res.status(500).json({
-      status: 'error',
-      message: 'Internal server error'
-    });
+  constructor(userService: UserService) {
+    this.userService = userService;
   }
 
-  getAll = async (req: Request, res: Response) => {
+  async getAll(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll();
       res.json({
@@ -29,11 +18,11 @@ export class UserController {
         data: users
       });
     } catch (error) {
-      this.handleError(error as Error, res);
+      handleError(error as Error, res);
     }
   };
 
-  getById = async (req: Request, res: Response) => {
+  async getById(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const user = await this.userService.findById(id);
@@ -42,11 +31,11 @@ export class UserController {
         data: user
       });
     } catch (error) {
-      this.handleError(error as Error, res);
+      handleError(error as Error, res);
     }
   };
 
-  create = async (req: Request, res: Response) => {
+  async create(req: Request, res: Response) {
     try {
       const userData: CreateUserDTO = req.body;
       const newUser = await this.userService.create(userData);
@@ -55,11 +44,11 @@ export class UserController {
         data: newUser
       });
     } catch (error) {
-      this.handleError(error as Error, res);
+      handleError(error as Error, res);
     }
   };
 
-  update = async (req: Request, res: Response) => {
+  async update(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const userData: UpdateUserDTO = req.body;
@@ -69,11 +58,11 @@ export class UserController {
         data: updatedUser
       });
     } catch (error) {
-      this.handleError(error as Error, res);
+      handleError(error as Error, res);
     }
   };
 
-  delete = async (req: Request, res: Response) => {
+  async delete(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       await this.userService.delete(id);
@@ -82,7 +71,9 @@ export class UserController {
         message: 'User deleted successfully'
       });
     } catch (error) {
-      this.handleError(error as Error, res);
+      handleError(error as Error, res);
     }
   };
 } 
+
+export default UserController;

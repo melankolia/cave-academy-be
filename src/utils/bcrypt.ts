@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 class Bcrypt {
     private saltRounds: number;
 
-    constructor(saltRounds: number = 10) {
+    constructor(saltRounds: number = parseInt(process.env.SALT_ROUNDS)) {
         this.saltRounds = saltRounds;
     }
     

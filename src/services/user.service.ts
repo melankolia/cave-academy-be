@@ -1,9 +1,14 @@
-import { NotFoundError } from '../utils/errors';
+import { NotFoundError, BadRequestError } from '../utils/errors';
 import { User, CreateUserDTO, UpdateUserDTO } from '../models/user';
-import { UserRepository } from '../repositories/user';
+import UserRepository from '../repositories/user';
+import Bcrypt from '../utils/bcrypt';
 
-export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+class UserService {
+  private bcrypt: Bcrypt;
+
+  constructor(private readonly userRepository: UserRepository) {
+    this.bcrypt = new Bcrypt();
+  }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.findAll();
@@ -18,7 +23,18 @@ export class UserService {
   }
 
   async create(data: CreateUserDTO): Promise<User> {
-    return this.userRepository.create(data);
+    // Check if username already exists
+    const existingUser = await this.userRepository.findByName(data.name);
+    if (existingUser) {
+      throw new BadRequestError(`Username '${data.name}' is already taken`);
+    }
+
+    // Hash the password before storing
+    const hashedPassword = await this.bcrypt.hashPassword(data.password);
+    return this.userRepository.create({
+      ...data,
+      password: hashedPassword
+    });
   }
 
   async update(id: number, data: UpdateUserDTO): Promise<User> {
@@ -26,6 +42,20 @@ export class UserService {
     if (!user) {
       throw new NotFoundError(`User with id ${id} not found`);
     }
+
+    // If updating username, check if new username is already taken by another user
+    if (data.name) {
+      const existingUser = await this.userRepository.findByName(data.name);
+      if (existingUser && existingUser.id !== id) {
+        throw new BadRequestError(`Username '${data.name}' is already taken`);
+      }
+    }
+
+    // If password is being updated, hash it
+    if (data.password) {
+      data.password = await this.bcrypt.hashPassword(data.password);
+    }
+
     return this.userRepository.update(id, data);
   }
 
@@ -36,4 +66,6 @@ export class UserService {
     }
     await this.userRepository.delete(id);
   }
-} 
+}
+
+export default UserService;

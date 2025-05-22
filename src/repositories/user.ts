@@ -3,7 +3,7 @@ import { db } from '../db';
 import { User, CreateUserDTO, UpdateUserDTO } from '../models/user';
 import { usersTable } from '../schemas/user';
 
-export class UserRepository {
+class UserRepository {
   async findAll(): Promise<User[]> {
     const users = await db.query.usersTable.findMany();
     return users.map(user => ({
@@ -12,6 +12,21 @@ export class UserRepository {
       role: user.role,
       password: user.password
     } as User));
+  }
+
+  async findByName(name: string): Promise<User | null> {
+    const user = await db.query.usersTable.findFirst({
+      where: eq(usersTable.name, name)
+    });
+    
+    if (!user) return null;
+    
+    return {
+      id: user.id,
+      name: user.name,
+      role: user.role,
+      password: user.password
+    } as User;
   }
 
   async findById(id: number): Promise<User | null> {
@@ -66,3 +81,5 @@ export class UserRepository {
       .where(eq(usersTable.id, id));
   }
 }
+
+export default UserRepository;
