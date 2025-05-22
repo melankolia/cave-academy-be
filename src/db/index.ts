@@ -2,12 +2,20 @@ import 'dotenv/config';
 import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { usersTable } from '../schemas/user';
+import { usersTable, usersRelations } from '../schemas/user';
+import { newsTable, newsRelations } from '../schemas/news';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
 });
 
-const db = drizzle({ client: pool, schema: { usersTable } });
+const schema = {
+  usersTable,
+  newsTable,
+  usersRelations,
+  newsRelations
+};
 
-export { db }
+const db = drizzle(pool, { schema });
+
+export { db };

@@ -1,5 +1,5 @@
 import { NotFoundError, BadRequestError } from '../utils/errors';
-import { User, CreateUserDTO, UpdateUserDTO } from '../models/user';
+import { User, CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
 import UserRepository from '../repositories/user';
 import Bcrypt from '../utils/bcrypt';
 

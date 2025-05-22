@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../db';
-import { User, CreateUserDTO, UpdateUserDTO } from '../models/user';
+import { User, CreateUserDTO, UpdateUserDTO } from '../models/user.dto';
 import { usersTable } from '../schemas/user';
 
 class UserRepository {

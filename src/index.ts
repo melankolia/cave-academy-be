@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 
 import userRouter from "./routes/user";
 import authRouter from "./routes/auth";
+import newsRouter from "./routes/news";
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 // User routes
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/news', newsRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
