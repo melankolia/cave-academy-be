@@ -24,9 +24,9 @@ class UserService {
 
   async create(data: CreateUserDTO): Promise<User> {
     // Check if username already exists
-    const existingUser = await this.userRepository.findByName(data.name);
-    if (existingUser) {
-      throw new BadRequestError(`Username '${data.name}' is already taken`);
+    const existingUserByUsername = await this.userRepository.findByUsername(data.username);
+    if (existingUserByUsername) {
+      throw new BadRequestError(`Username '${data.username}' is already taken`);
     }
 
     // Hash the password before storing
@@ -44,10 +44,18 @@ class UserService {
     }
 
     // If updating username, check if new username is already taken by another user
+    if (data.username) {
+      const existingUser = await this.userRepository.findByUsername(data.username);
+      if (existingUser && existingUser.id !== id) {
+        throw new BadRequestError(`Username '${data.username}' is already taken`);
+      }
+    }
+
+    // If updating name, check if new name is already taken by another user
     if (data.name) {
       const existingUser = await this.userRepository.findByName(data.name);
       if (existingUser && existingUser.id !== id) {
-        throw new BadRequestError(`Username '${data.name}' is already taken`);
+        throw new BadRequestError(`Name '${data.name}' is already taken`);
       }
     }
 

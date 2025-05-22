@@ -9,6 +9,7 @@ class UserRepository {
     return users.map(user => ({
       id: user.id,
       name: user.name,
+      username: user.username,
       role: user.role,
       password: user.password
     } as User));
@@ -24,6 +25,23 @@ class UserRepository {
     return {
       id: user.id,
       name: user.name,
+      username: user.username,
+      role: user.role,
+      password: user.password
+    } as User;
+  }
+
+  async findByUsername(username: string): Promise<User | null> {
+    const user = await db.query.usersTable.findFirst({
+      where: eq(usersTable.username, username)
+    });
+    
+    if (!user) return null;
+    
+    return {
+      id: user.id,
+      name: user.name,
+      username: user.username,
       role: user.role,
       password: user.password
     } as User;
@@ -39,6 +57,7 @@ class UserRepository {
     return {
       id: user.id,
       name: user.name,
+      username: user.username,
       role: user.role,
       password: user.password
     } as User;
@@ -54,6 +73,7 @@ class UserRepository {
     return {
       id: user.id,
       name: user.name,
+      username: user.username,
       role: user.role,
       password: user.password
     } as User;
@@ -70,6 +90,7 @@ class UserRepository {
     return {
       id: user.id,
       name: user.name,
+      username: user.username,
       role: user.role,
       password: user.password
     } as User;

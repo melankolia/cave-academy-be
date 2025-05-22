@@ -14,9 +14,9 @@ class AuthService {
         this.bcrypt = new Bcrypt();
     }
 
-    async login(name: string, password: string): Promise<string> {
+    async login(username: string, password: string): Promise<string> {
         try {
-            const user = await this.userRepository.findByName(name);
+            const user = await this.userRepository.findByUsername(username);
             if (!user) {
                 throw new NotFoundError('User not found');
             }
@@ -26,7 +26,7 @@ class AuthService {
                 throw new BadRequestError('Invalid credentials');
             }
 
-            const token = await this.jsonWebToken.sign({ name });
+            const token = await this.jsonWebToken.sign({ username });
             return token;
 
         } catch (error) {
@@ -38,7 +38,7 @@ class AuthService {
             console.error('Authentication error:', {
                 error: error instanceof Error ? error.message : 'Unknown error',
                 timestamp: new Date().toISOString(),
-                user: name
+                username: username
             });
 
             // Always return a generic error message to the client for security

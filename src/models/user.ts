@@ -1,6 +1,7 @@
 export interface User {
   id: number;
   name: string;
+  username: string;
   role: string;
   password: string;
 }
@@ -8,6 +9,7 @@ export interface User {
 // For creating a new user (without id since it's auto-generated)
 export interface CreateUserDTO {
   name: string;
+  username: string;
   role: string;
   password: string;
 }
@@ -15,6 +17,7 @@ export interface CreateUserDTO {
 // For updating a user
 export interface UpdateUserDTO {
   name?: string;
+  username?: string;
   role?: string;
   password?: string;
 }

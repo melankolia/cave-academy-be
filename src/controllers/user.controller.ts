@@ -15,7 +15,12 @@ class UserController {
       const users = await this.userService.findAll();
       res.json({
         status: 'success',
-        data: users
+        data: users.map(user => ({
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          role: user.role,
+        }))
       });
     } catch (error) {
       handleError(error as Error, res);
@@ -28,7 +33,12 @@ class UserController {
       const user = await this.userService.findById(id);
       res.json({
         status: 'success',
-        data: user
+        data: {
+          id: user.id,
+          name: user.name,
+          username: user.username,
+          role: user.role,
+        }
       });
     } catch (error) {
       handleError(error as Error, res);
@@ -41,7 +51,12 @@ class UserController {
       const newUser = await this.userService.create(userData);
       res.status(201).json({
         status: 'success',
-        data: newUser
+        data: {
+          id: newUser.id,
+          name: newUser.name,
+          username: newUser.username,
+          role: newUser.role,
+        }
       });
     } catch (error) {
       handleError(error as Error, res);
@@ -55,7 +70,12 @@ class UserController {
       const updatedUser = await this.userService.update(id, userData);
       res.json({
         status: 'success',
-        data: updatedUser
+        data: {
+          id: updatedUser.id,
+          name: updatedUser.name,
+          username: updatedUser.username,
+          role: updatedUser.role,
+        }
       });
     } catch (error) {
       handleError(error as Error, res);
