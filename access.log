@@ -116,3 +116,7 @@
 ::1 - - [23/May/2025:16:56:49 +0000] "GET /api/courses/0bcc64fb-854d-4acc-b166-846d1af78e6f HTTP/1.1" 500 52 "-" "PostmanRuntime/7.44.0"
 ::1 - - [23/May/2025:16:58:07 +0000] "GET /api/courses/0bcc64fb-854d-4acc-b166-846d1af78e6f HTTP/1.1" 200 1101 "-" "PostmanRuntime/7.44.0"
 ::1 - - [23/May/2025:16:58:52 +0000] "GET /api/courses HTTP/1.1" 200 984 "-" "PostmanRuntime/7.44.0"
+::1 - - [24/May/2025:17:47:32 +0000] "POST /api/courses HTTP/1.1" 404 64 "-" "PostmanRuntime/7.44.0"
+::1 - - [24/May/2025:17:50:07 +0000] "POST /api/courses HTTP/1.1" 201 32 "-" "PostmanRuntime/7.44.0"
+::1 - - [24/May/2025:17:51:15 +0000] "POST /api/courses HTTP/1.1" 201 32 "-" "PostmanRuntime/7.44.0"
+::1 - - [24/May/2025:17:52:48 +0000] "POST /api/courses HTTP/1.1" 201 32 "-" "PostmanRuntime/7.44.0"

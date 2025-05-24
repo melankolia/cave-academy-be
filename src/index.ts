@@ -9,7 +9,6 @@ import userRouter from "./routes/user";
 import authRouter from "./routes/auth";
 import newsRouter from "./routes/news";
 import eventRouter from "./routes/event";
-import courseRouter from "./routes/course";
 
 const app = express();
 
@@ -46,7 +45,6 @@ app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/news', newsRouter);
 app.use('/api/events', eventRouter);
-app.use('/api/courses', courseRouter);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
