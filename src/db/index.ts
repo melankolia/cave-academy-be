@@ -4,7 +4,7 @@ import { Pool } from "pg";
 import { usersTable, usersRelations } from '../schemas/user';
 import { newsTable, newsRelations } from '../schemas/news';
 import { eventTable, eventRelations } from '../schemas/event';
-import { courseTable, courseRelations, contentCoveredTable, contentCoveredRelations } from '../schemas/course';
+import { courseTable, contentCoveredTable, courseRelations, contentCoveredRelations, subContentTable, subCourseTable, subContentRelations, subCourseRelations } from '../schemas/course';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
@@ -16,11 +16,15 @@ const schema = {
   eventTable,
   courseTable,
   contentCoveredTable,
+  subContentTable,
+  subCourseTable,
+  courseRelations,
   usersRelations,
   newsRelations,
   eventRelations,
-  courseRelations,
-  contentCoveredRelations
+  contentCoveredRelations,
+  subContentRelations,
+  subCourseRelations,
 };
 
 const db = drizzle(pool, { schema });
