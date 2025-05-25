@@ -10,7 +10,6 @@ class Bcrypt {
     async hashPassword(plainPassword: string) {
         try {
             const hashedPassword = await bcrypt.hash(plainPassword, this.saltRounds);
-            console.log('Hashed Password:', hashedPassword);
         
             return hashedPassword;
           } catch (error) {

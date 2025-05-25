@@ -75,7 +75,6 @@ class CourseService {
       // Handle parent content covered and its sub-content
       const parentContentCovered = course.contentCovered.find(cc => cc.type === "PARENT") as ParentContentCovered;
 
-      console.log({parentContentCovered});
       if (parentContentCovered?.subContents) {
         const parentContentCoveredId = resultContentCovered.find(cc => cc.type === "PARENT")?.id;
         const resultSubContent: any = await this.courseRepository.createSubContent(
@@ -97,8 +96,6 @@ class CourseService {
             });
           }
         });
-
-        console.log({payloadSubCourse});
 
         if (payloadSubCourse.length > 0) {
           await this.courseRepository.createSubCourse(payloadSubCourse);

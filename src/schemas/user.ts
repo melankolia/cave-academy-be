@@ -2,7 +2,7 @@ import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { newsTable } from "./news";
 import { eventTable } from "./event";
-
+import { wikiTable } from "./wiki";
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
@@ -13,5 +13,6 @@ export const usersTable = pgTable("users", {
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
   news: many(newsTable),
-  events: many(eventTable)
+  events: many(eventTable),
+  wiki: many(wikiTable),
 })); 
