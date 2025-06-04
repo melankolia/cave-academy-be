@@ -2,6 +2,7 @@ import UserRepository from "../repositories/user";
 import Bcrypt from "../utils/bcrypt";
 import JsonWebToken from "../utils/jwt";
 import { BadRequestError, NotFoundError } from "../utils/errors";
+import { LoginResponse } from "../models/auth.dto";
 
 class AuthService {
     private userRepository: UserRepository;
@@ -14,7 +15,7 @@ class AuthService {
         this.bcrypt = new Bcrypt();
     }
 
-    async login(username: string, password: string): Promise<string> {
+    async login(username: string, password: string): Promise<LoginResponse> {
         try {
             const user = await this.userRepository.findByUsername(username);
             if (!user) {
@@ -27,7 +28,17 @@ class AuthService {
             }
 
             const token = await this.jsonWebToken.sign({ username });
-            return token;
+            return {
+                data: {
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        username: user.username,
+                        role: user.role
+                    }
+                },
+                token
+            };
 
         } catch (error) {
             if (error instanceof NotFoundError || error instanceof BadRequestError) {

@@ -9,12 +9,12 @@ import topicRoutes from "./topic";
 
 const router = Router();
 
-router.use("/courses", courseRoutes);
-router.use("/events", eventRoutes);
+router.use("/course", courseRoutes);
+router.use("/event", eventRoutes);
 router.use("/news", newsRoutes);
-router.use("/users", userRoutes);
+router.use("/user", userRoutes);
 router.use("/auth", authRoutes);
-router.use("/wikis", wikiRoutes);
-router.use("/topics", topicRoutes);
+router.use("/wiki", wikiRoutes);
+router.use("/topic", topicRoutes);
 
 export default router; 
