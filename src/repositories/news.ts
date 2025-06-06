@@ -25,6 +25,7 @@ class NewsRepository {
       id: item.id,
       title: item.title,
       content: item.content,
+      description: item.description,
       imageUrl: item.imageUrl,
       author: item.author,
       createdAt: item.createdAt,
@@ -54,6 +55,7 @@ class NewsRepository {
       title: news.title,
       imageUrl: news.imageUrl,
       content: news.content,
+      description: news.description,
       author: news.author,
       createdAt: news.createdAt,
       updatedAt: news.updatedAt
@@ -66,6 +68,7 @@ class NewsRepository {
       .values({
         title: data.title,
         content: data.content,
+        description: data.description,
         imageUrl: data.imageUrl,
         authorId: data.authorId
       })

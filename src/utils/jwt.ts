@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 class JsonWebToken {
     private secretKey: string;
@@ -9,11 +9,11 @@ class JsonWebToken {
         this.expiresIn = '1h';
     }
 
-    async sign(payload: any) {
+    sign(payload: object): string {
         return jwt.sign(payload, this.secretKey, { expiresIn: this.expiresIn });
     }
 
-    async verify(token: string) {
+    verify(token: string): string | JwtPayload {
         return jwt.verify(token, this.secretKey);
     }
 }

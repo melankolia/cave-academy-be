@@ -4,6 +4,7 @@ export interface News {
   id: number;
   title: string;
   content: string;
+  description: string;
   imageUrl?: string;
   author: User;
   createdAt: Date;
@@ -13,6 +14,7 @@ export interface News {
 export interface CreateNewsDTO {
   title: string;
   content: string;
+  description: string;
   imageUrl?: string;
   authorId: number;
 }
@@ -20,5 +22,6 @@ export interface CreateNewsDTO {
 export interface UpdateNewsDTO {
   title?: string;
   content?: string;
+  description?: string;
   imageUrl?: string;
 } 

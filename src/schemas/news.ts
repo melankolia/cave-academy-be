@@ -7,6 +7,7 @@ export const newsTable = pgTable("news", {
   title: varchar({ length: 255 }).notNull(),
   imageUrl: varchar({ length: 2048 }),
   content: text().notNull(),
+  description: text().notNull(),
   authorId: integer().notNull().references(() => usersTable.id),
   createdAt: timestamp().notNull().defaultNow(),
   updatedAt: timestamp().notNull().defaultNow(),
