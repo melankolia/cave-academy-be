@@ -7,7 +7,18 @@ class TopicRepository {
   async findAll(): Promise<Object[]> {
     return await db.query.topicTable.findMany({
       with: {
-        wiki: true,
+        wiki: {
+          with: {
+            user: {
+              columns: {
+                id: true,
+                name: true,
+                username: true,
+                role: true,
+              }
+            },
+          }
+        }
       },
     });
   }
