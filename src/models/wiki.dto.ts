@@ -34,7 +34,7 @@ export interface UpdateWikiDTO {
   imageUrl?: string;
   content?: string;
   userId?: number;
-  wiki?: {
+  wikis?: {
     id?: number;
     title?: string;
     description?: string;

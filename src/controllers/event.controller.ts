@@ -41,7 +41,7 @@ class EventController {
         ...req.body,
         startDate: new Date(req.body.startDate),
         endDate: new Date(req.body.endDate),
-        authorId: req.body.authorId
+        authorId: req.user.id
       };
       
       const event = await this.eventService.create(data);
@@ -60,7 +60,8 @@ class EventController {
       const data: UpdateEventDTO = {
         ...req.body,
         startDate: req.body.startDate ? new Date(req.body.startDate) : undefined,
-        endDate: req.body.endDate ? new Date(req.body.endDate) : undefined
+        endDate: req.body.endDate ? new Date(req.body.endDate) : undefined,
+        authorId: req.user.id
       };
       
       const event = await this.eventService.update(id, data);

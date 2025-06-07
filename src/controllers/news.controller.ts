@@ -12,7 +12,10 @@ class NewsController {
 
   async createNews(req: Request, res: Response) {
     try {
-      const data: CreateNewsDTO = req.body;
+      const data: CreateNewsDTO = {
+        ...req.body,
+        authorId: req.user.id
+      };
       const news = await this.newsService.create(data);
       res.status(201).json({
         status: 'success',
@@ -51,7 +54,10 @@ class NewsController {
   async updateNews(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
-      const data: UpdateNewsDTO = req.body;
+      const data: UpdateNewsDTO = {
+        ...req.body,
+        authorId: req.user.id
+      };
       const news = await this.newsService.update(id, data);
       res.status(200).json({
         status: 'success',

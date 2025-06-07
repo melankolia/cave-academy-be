@@ -27,7 +27,7 @@ class AuthService {
                 throw new BadRequestError('Invalid credentials');
             }
 
-            const token = await this.jsonWebToken.sign({ username });
+            const token = await this.jsonWebToken.sign({ username, id: user.id });
             return {
                 data: {
                     user: {
