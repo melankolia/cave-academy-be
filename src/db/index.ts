@@ -6,6 +6,8 @@ import { newsTable, newsRelations } from '../schemas/news';
 import { eventTable, eventRelations } from '../schemas/event';
 import { courseTable, contentCoveredTable, courseRelations, contentCoveredRelations, subContentTable, subCourseTable, subContentRelations, subCourseRelations } from '../schemas/course';
 import { wikiTable, topicTable, topicRelations, wikiRelations } from '../schemas/wiki';
+import { studentTable, studentRelations } from '../schemas/student';
+import { purchaseHistoryTable, purchaseHistoryRelations } from '../schemas/purchase_history';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
@@ -30,6 +32,10 @@ const schema = {
   topicTable,
   topicRelations,
   wikiRelations,
+  studentTable,
+  purchaseHistoryTable,
+  purchaseHistoryRelations,
+  studentRelations,
 };
 
 const db = drizzle(pool, { schema });

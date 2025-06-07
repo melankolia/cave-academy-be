@@ -7,10 +7,10 @@ export interface Course {
   level: string;
   type: string;
   content: string;
-  startDate: string;
-  endDate: string;
-  createdAt: string;
-  updatedAt: string;
+  startDate: Date;
+  endDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
   contentCovered?: (ContentCovered | ParentContentCovered)[]
 }
 

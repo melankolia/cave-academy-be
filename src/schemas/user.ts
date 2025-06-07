@@ -3,6 +3,8 @@ import { relations } from "drizzle-orm";
 import { newsTable } from "./news";
 import { eventTable } from "./event";
 import { wikiTable } from "./wiki";
+import { purchaseHistoryTable } from "./purchase_history";
+
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
