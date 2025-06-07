@@ -23,11 +23,15 @@ class TopicRepository {
     });
   }
 
-  async findById(id: number): Promise<Object> {
+  async findById(id: number): Promise<Topic> {
     return await db.query.topicTable.findFirst({
       where: eq(topicTable.id, id),
       with: {
-        wiki: true,
+        wiki: {
+          with: {
+            user: true,
+          }
+        }
       },
     });
   }

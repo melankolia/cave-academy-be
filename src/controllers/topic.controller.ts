@@ -13,7 +13,10 @@ class TopicController {
         try {
             const id = parseInt(req.params.id);
             const topic = await this.topicService.findById(id);
-            res.json(topic);
+            res.json({
+                status: 'success',
+                data: topic
+            });
         } catch (error) {
             handleError(error as Error, res);
         }

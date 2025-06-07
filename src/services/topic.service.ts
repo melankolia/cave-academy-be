@@ -11,6 +11,10 @@ class TopicService {
   
   async findById(id: number): Promise<Object> {
     const topic: any = await this.topicRepository.findById(id);
+
+    topic.wikis = topic.wiki;
+    delete topic.wiki;
+
     if (!topic) {
       throw new NotFoundError(`Topic with id ${id} not found`);
     }
