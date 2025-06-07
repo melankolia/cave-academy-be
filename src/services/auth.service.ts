@@ -18,6 +18,7 @@ class AuthService {
     async login(username: string, password: string): Promise<LoginResponse> {
         try {
             const user = await this.userRepository.findByUsername(username);
+
             if (!user) {
                 throw new NotFoundError('User not found');
             }

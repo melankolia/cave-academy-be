@@ -12,10 +12,10 @@ const studentController = new StudentController(studentService);
 const router = Router();
 
 // Student routes
-router.get('/', Verification.verifyToken, (req, res) => studentController.getAllStudents(req, res));
-router.get('/:id', Verification.verifyToken, (req, res) => studentController.getStudentById(req, res));
-router.post('/', Verification.verifyToken, (req, res) => studentController.createStudent(req, res));
-router.put('/:id', Verification.verifyToken, (req, res) => studentController.updateStudent(req, res));
-router.delete('/:id', Verification.verifyToken, (req, res) => studentController.deleteStudent(req, res));
+router.get('/', Verification.verifyToken, studentController.getAllStudents.bind(studentController));
+router.get('/:id', Verification.verifyToken, studentController.getStudentById.bind(studentController));
+router.post('/', Verification.verifyToken, studentController.createStudent.bind(studentController));
+router.put('/:id', Verification.verifyToken, studentController.updateStudent.bind(studentController));
+router.delete('/:id', Verification.verifyToken, studentController.deleteStudent.bind(studentController));
 
 export default router; 
