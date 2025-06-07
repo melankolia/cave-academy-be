@@ -29,8 +29,6 @@ class WikiService {
     const payloadTopic = {
       title: wiki.title,
       description: wiki.description,
-      thumbnailUrl: wiki.thumbnailUrl,
-      imageUrl: wiki.imageUrl,
       content: wiki.content,
       userId: wiki.userId,
     }

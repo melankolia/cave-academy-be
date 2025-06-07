@@ -15,8 +15,6 @@ export interface Wiki {
 export interface CreateWikiDTO {
   title: string;
   description: string;
-  thumbnailUrl: string;
-  imageUrl: string;
   content: string;
   userId: number;
   wikis: {
