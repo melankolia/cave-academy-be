@@ -11,10 +11,10 @@ const newsService = new NewsService(newsRepository);
 const newsController = new NewsController(newsService);
 
 
-router.post("/", Verification.verifyToken, (req, res) => newsController.createNews(req, res));
-router.get("/", (req, res) => newsController.getAllNews(req, res));
-router.get("/:id", (req, res) => newsController.getNewsById(req, res));
-router.put("/:id", Verification.verifyToken, (req, res) => newsController.updateNews(req, res));
-router.delete("/:id", Verification.verifyToken, (req, res) => newsController.deleteNews(req, res));
+router.post("/", Verification.verifyToken, newsController.createNews.bind(newsController));
+router.get("/", newsController.getAllNews.bind(newsController));
+router.get("/:id", newsController.getNewsById.bind(newsController));
+router.put("/:id", Verification.verifyToken, newsController.updateNews.bind(newsController));
+router.delete("/:id", Verification.verifyToken, newsController.deleteNews.bind(newsController));
 
 export default router; 

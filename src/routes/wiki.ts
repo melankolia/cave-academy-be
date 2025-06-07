@@ -12,10 +12,10 @@ const topicRepository = new TopicRepository();
 const wikiService = new WikiService(wikiRepository, topicRepository);
 const wikiController = new WikiController(wikiService);
 
-router.get('/', (req, res) => wikiController.findAll(req, res));
-router.get('/:id', (req, res) => wikiController.findById(req, res));
-router.post('/', Verification.verifyToken, (req, res) => wikiController.create(req, res));
-router.put('/:id', Verification.verifyToken, (req, res) => wikiController.update(req, res));
-router.delete('/:id', Verification.verifyToken, (req, res) => wikiController.delete(req, res));
+router.get('/', wikiController.findAll.bind(wikiController));
+router.get('/:id', wikiController.findById.bind(wikiController));
+router.post('/', Verification.verifyToken, wikiController.create.bind(wikiController));
+router.put('/:id', Verification.verifyToken, wikiController.update.bind(wikiController));
+router.delete('/:id', Verification.verifyToken, wikiController.delete.bind(wikiController));
 
 export default router;

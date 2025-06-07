@@ -12,10 +12,10 @@ const courseRepository = new CourseRepository();
 const courseService = new CourseService(courseRepository);
 const courseController = new CourseController(courseService);
 
-router.get("/", Verification.verifyToken, (req, res) => courseController.getAllCourses(req, res));
-router.get("/:id", Verification.verifyToken, (req, res) => courseController.getCourseById(req, res));
-router.post("/", Verification.verifyToken, (req, res) => courseController.createCourse(req, res));
-router.put("/:id", Verification.verifyToken, (req, res) => courseController.updateCourse(req, res));
-router.delete("/:id", Verification.verifyToken, (req, res) => courseController.deleteCourse(req, res));
+router.get("/", Verification.verifyToken, courseController.getAllCourses.bind(courseController));
+router.get("/:id", Verification.verifyToken, courseController.getCourseById.bind(courseController));
+router.post("/", Verification.verifyToken, courseController.createCourse.bind(courseController));
+router.put("/:id", Verification.verifyToken, courseController.updateCourse.bind(courseController));
+router.delete("/:id", Verification.verifyToken, courseController.deleteCourse.bind(courseController));
 
 export default router;

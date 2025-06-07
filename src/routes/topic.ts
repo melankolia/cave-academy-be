@@ -12,7 +12,7 @@ const wikiRepository = new WikiRepository();
 const topicService = new TopicService(topicRepository, wikiRepository);
 const topicController = new TopicController(topicService);
 
-router.get('/:id', (req, res) => topicController.findById(req, res));
-router.delete('/:id', Verification.verifyToken, (req, res) => topicController.delete(req, res));
+router.get('/:id', topicController.findById.bind(topicController));
+router.delete('/:id', Verification.verifyToken, topicController.delete.bind(topicController));
 
 export default router;
