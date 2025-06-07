@@ -8,6 +8,7 @@ import { courseTable, contentCoveredTable, courseRelations, contentCoveredRelati
 import { wikiTable, topicTable, topicRelations, wikiRelations } from '../schemas/wiki';
 import { studentTable, studentRelations } from '../schemas/student';
 import { purchaseHistoryTable, purchaseHistoryRelations } from '../schemas/purchase_history';
+import { activeStudentsTable, activeStudentsRelations } from '../schemas/active_students';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
@@ -36,6 +37,8 @@ const schema = {
   purchaseHistoryTable,
   purchaseHistoryRelations,
   studentRelations,
+  activeStudentsTable,
+  activeStudentsRelations,
 };
 
 const db = drizzle(pool, { schema });

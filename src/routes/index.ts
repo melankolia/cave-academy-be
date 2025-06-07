@@ -7,6 +7,7 @@ import authRoutes from "./auth";
 import wikiRoutes from "./wiki";
 import topicRoutes from "./topic";
 import studentRoutes from "./student";
+import activeStudentsRoutes from "./active_students";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/auth", authRoutes);
 router.use("/wiki", wikiRoutes);
 router.use("/topic", topicRoutes);
 router.use("/student", studentRoutes);
+router.use("/active-students", activeStudentsRoutes);
 
 export default router; 

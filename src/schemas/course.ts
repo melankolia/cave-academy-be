@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import { integer, PgColumn, pgTable, PgTableWithColumns, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { activeStudentsTable } from "./active_students";
 
 export const courseTable = pgTable("courses", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -48,6 +49,9 @@ export const courseRelations = relations(courseTable, ({ many, one }) => ({
       references: [contentCoveredTable.courseId],
       relationName: "courses",
     }),
+    activeStudents: many(activeStudentsTable, {
+      relationName: "activeStudents",
+    }),
   }));
 
 export const contentCoveredRelations = relations(contentCoveredTable, ({ many, one }) => ({
@@ -80,3 +84,4 @@ export const subCourseRelations = relations(subCourseTable, ({ one }) => ({
     references: [subContentTable.id]
   }),
 }))
+
