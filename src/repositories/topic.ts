@@ -23,7 +23,7 @@ class TopicRepository {
     });
   }
 
-  async findById(id: number): Promise<Topic> {
+  async findById(id: number): Promise<Object> {
     return await db.query.topicTable.findFirst({
       where: eq(topicTable.id, id),
       with: {

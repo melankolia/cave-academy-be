@@ -35,7 +35,9 @@ class WikiService {
   
     const topicId = await this.topicRepository.create(payloadTopic);
 
-    return await this.wikiRepository.create(wiki, topicId);
+    await this.wikiRepository.create(wiki, topicId);
+
+    return topicId;
   }
 
   async update(id: number, data: UpdateWikiDTO): Promise<boolean> {
