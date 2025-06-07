@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import { purchaseHistoryTable } from "../schemas/purchase_history";
 import { PurchaseHistory } from "../models/purchase_histories.dto";

@@ -37,7 +37,7 @@ class CourseRepository {
         course.contentCovered[i] = {
           ...course.contentCovered[i],
           subContents: subContent
-        }
+        } as any
       }
     }
 
@@ -143,7 +143,7 @@ class CourseRepository {
     return result;
   }
 
-  public async updateContentCovered(id: number, contentCovered: Partial<ContentCovered>): Promise<Object> {
+  public async updateContentCovered(id: number, contentCovered: any): Promise<Object> {
     const [result] = await db
       .update(contentCoveredTable)
       .set(contentCovered)
