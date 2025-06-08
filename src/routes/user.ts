@@ -12,10 +12,10 @@ const userController = new UserController(userService);
 const router = Router();
 
 // Routes
-router.get('/', Verification.verifyToken, (req, res) => userController.getAll(req, res));
-router.get('/:id', Verification.verifyToken, (req, res) => userController.getById(req, res));
-router.post('/', Verification.verifyToken, (req, res) => userController.create(req, res));
-router.put('/:id', Verification.verifyToken, (req, res) => userController.update(req, res));
-router.delete('/:id', Verification.verifyToken, (req, res) => userController.delete(req, res));
+router.get('/', Verification.verifyToken, userController.getAll.bind(userController));
+router.get('/:id', Verification.verifyToken, userController.getById.bind(userController));
+router.post('/', Verification.verifyToken, userController.create.bind(userController));
+router.put('/:id', Verification.verifyToken, userController.update.bind(userController));
+router.delete('/:id', Verification.verifyToken, userController.delete.bind(userController));
 
 export default router; 

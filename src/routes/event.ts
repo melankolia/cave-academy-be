@@ -16,8 +16,8 @@ router.get("/", (req, res) => eventController.getAllEvents(req, res));
 router.get("/:id", (req, res) => eventController.getEventById(req, res));
 
 // Protected routes (require authentication)
-router.post("/", Verification.verifyToken, (req, res) => eventController.createEvent(req, res));
-router.put("/:id", Verification.verifyToken, (req, res) => eventController.updateEvent(req, res));
-router.delete("/:id", Verification.verifyToken, (req, res) => eventController.deleteEvent(req, res));
+router.post("/", Verification.verifyToken, eventController.createEvent.bind(eventController));
+router.put("/:id", Verification.verifyToken, eventController.updateEvent.bind(eventController));
+router.delete("/:id", Verification.verifyToken, eventController.deleteEvent.bind(eventController));
 
 export default router; 

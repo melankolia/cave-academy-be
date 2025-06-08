@@ -2,6 +2,11 @@ import { Request, Response } from "express";
 import NewsService  from "../services/news.service";
 import { CreateNewsDTO, UpdateNewsDTO } from "../models/news.dto";
 import { handleError } from '../utils/errorHandler';
+import { JwtPayload } from 'jsonwebtoken';
+
+interface RequestWithUser extends Request {
+  user?: JwtPayload | string;
+}
 
 class NewsController {
   private newsService: NewsService;
@@ -10,9 +15,12 @@ class NewsController {
     this.newsService = newsService;
   }
 
-  async createNews(req: Request, res: Response) {
+  async createNews(req: RequestWithUser, res: Response) {
     try {
-      const data: CreateNewsDTO = req.body;
+      const data: CreateNewsDTO = {
+        ...req.body,
+        authorId: req.user.id
+      };
       const news = await this.newsService.create(data);
       res.status(201).json({
         status: 'success',
@@ -35,7 +43,7 @@ class NewsController {
     }
   }
 
-  async getNewsById(req: Request, res: Response) {
+  async getNewsById(req: RequestWithUser, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const news = await this.newsService.findById(id);
@@ -48,10 +56,13 @@ class NewsController {
     }
   }
 
-  async updateNews(req: Request, res: Response) {
+  async updateNews(req: RequestWithUser, res: Response) {
     try {
       const id = parseInt(req.params.id);
-      const data: UpdateNewsDTO = req.body;
+      const data: UpdateNewsDTO = {
+        ...req.body,
+        authorId: req.user.id
+      };
       const news = await this.newsService.update(id, data);
       res.status(200).json({
         status: 'success',

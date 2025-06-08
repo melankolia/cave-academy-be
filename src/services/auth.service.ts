@@ -18,6 +18,7 @@ class AuthService {
     async login(username: string, password: string): Promise<LoginResponse> {
         try {
             const user = await this.userRepository.findByUsername(username);
+
             if (!user) {
                 throw new NotFoundError('User not found');
             }
@@ -27,7 +28,7 @@ class AuthService {
                 throw new BadRequestError('Invalid credentials');
             }
 
-            const token = await this.jsonWebToken.sign({ username });
+            const token = await this.jsonWebToken.sign({ username, id: user.id });
             return {
                 data: {
                     user: {

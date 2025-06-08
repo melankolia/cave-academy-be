@@ -40,12 +40,12 @@ class WikiService {
     return topicId;
   }
 
-  async update(id: number, data: UpdateWikiDTO): Promise<boolean> {
+  async update(topicId: number, data: UpdateWikiDTO): Promise<boolean> {
     try {
       // Check if topic exists
-      const topic = await this.topicRepository.findById(id)
+      const topic = await this.topicRepository.findById(topicId) 
       if (!topic) {
-        throw new NotFoundError(`Topic with id ${id} not found`);
+        throw new NotFoundError(`Topic with id ${topicId} not found`);
       }
 
       const payloadTopic = {
@@ -56,19 +56,33 @@ class WikiService {
         content: data.content,
       }
 
-      await this.topicRepository.update(id, payloadTopic);
+      await this.topicRepository.update(topicId, payloadTopic);
 
-      for (let i = 0; i < data.wiki?.length; i++) {
+      for (let i = 0; i < data.wikis?.length; i++) {
         const payloadWiki = {
-          title: data.wiki[i].title,
-          description: data.wiki[i].description,
-          thumbnailUrl: data.wiki[i].thumbnailUrl,
-          imageUrl: data.wiki[i].imageUrl,
-          content: data.wiki[i].content,
+          title: data.wikis[i].title,
+          description: data.wikis[i].description,
+          thumbnailUrl: data.wikis[i].thumbnailUrl,
+          imageUrl: data.wikis[i].imageUrl,
+          content: data.wikis[i].content,
+          topicId: topicId,
+          userId: data.userId,
           updatedAt: new Date(),
         }
 
-        await this.wikiRepository.update(payloadWiki, data.wiki[i].id);
+        const wiki = await this.wikiRepository.findById(data.wikis[i].id) as WikiWithTopic;
+
+        if (wiki) {
+          await this.wikiRepository.update(payloadWiki, data.wikis[i].id);
+        } else {
+          const payload = {
+            ...data.wikis[i],
+            userId: data.userId,
+            topicId: topicId
+          } as Wiki;
+          await this.wikiRepository.createOne(payload);
+        }
+ 
       }
 
       return true

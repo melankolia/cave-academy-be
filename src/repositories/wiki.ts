@@ -34,6 +34,11 @@ class WikiRepository {
     return wiki.id
   }
 
+  async createOne(wiki: Wiki): Promise<number> {
+    const [createdWiki] = await db.insert(wikiTable).values(wiki).returning();
+    return createdWiki.id;
+  }
+
   async update( payloadWiki: Partial<Wiki>, id: number): Promise<boolean> {
     const [updatedWiki] = await db.update(wikiTable).set(payloadWiki).where(eq(wikiTable.id, id)).returning();
     return true;

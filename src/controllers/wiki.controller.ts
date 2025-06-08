@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import WikiService from "../services/wiki.service";
 import { handleError } from '../utils/errorHandler';
-import { UpdateWikiDTO } from '../models/wiki.dto';
+import { CreateWikiDTO, UpdateWikiDTO } from '../models/wiki.dto';
+import { JwtPayload } from 'jsonwebtoken';
+
+interface RequestWithUser extends Request {
+    user?: JwtPayload | string;
+}
 
 class WikiController {
     private wikiService: WikiService;
@@ -35,9 +40,13 @@ class WikiController {
         }
     }
 
-    async create(req: Request, res: Response) {
+    async create(req: RequestWithUser, res: Response) {
         try {
-            const wiki = await this.wikiService.create(req.body);
+            const data: CreateWikiDTO = {
+                ...req.body,
+                userId: req.user.id
+            };
+            const wiki = await this.wikiService.create(data);
             res.status(201).json({
                 status: 'success',
                 data: {
@@ -49,10 +58,13 @@ class WikiController {
         }
     }
 
-    async update(req: Request, res: Response) {
+    async update(req: RequestWithUser, res: Response) {
         try {
             const id = parseInt(req.params.id);
-            const data: UpdateWikiDTO = req.body;
+            const data: UpdateWikiDTO = {
+                ...req.body,
+                userId: req.user.id
+            };
             const wiki = await this.wikiService.update(id, data);
             res.json({
                 status: 'success',
