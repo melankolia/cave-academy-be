@@ -9,6 +9,7 @@ import topicRoutes from "./topic";
 import studentRoutes from "./student";
 import activeStudentsRoutes from "./active_students";
 import fileRoutes from "./file";
+import linkRoutes from "./link";
 
 const router = Router();
 
@@ -22,5 +23,7 @@ router.use("/topic", topicRoutes);
 router.use("/student", studentRoutes);
 router.use("/active-students", activeStudentsRoutes);
 router.use("/files", fileRoutes);
+router.use("/link", linkRoutes);
+
 
 export default router; 
