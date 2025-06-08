@@ -35,6 +35,8 @@ class FileController {
                     url: `https://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}/${bucket}/${filename}`
                 }
             });
+
+            return;
             
         } catch (error) {
             handleError(error as Error, res);

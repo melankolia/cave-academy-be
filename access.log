@@ -2132,3 +2132,5 @@
 ::1 - - [07/Jun/2025:16:28:50 +0000] "POST /api/v1/files/uploadFile HTTP/1.1" 200 201 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
 ::1 - - [07/Jun/2025:16:30:40 +0000] "POST /api/v1/files/uploadFile HTTP/1.1" 200 217 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
 ::1 - - [07/Jun/2025:16:31:36 +0000] "POST /api/v1/files/uploadFile HTTP/1.1" 200 221 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+::1 - - [07/Jun/2025:16:36:41 +0000] "POST /api/v1/files/uploadFile HTTP/1.1" 401 72 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+::1 - - [07/Jun/2025:16:37:16 +0000] "POST /api/v1/files/uploadFile HTTP/1.1" 401 72 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"

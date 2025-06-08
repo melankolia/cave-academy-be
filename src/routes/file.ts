@@ -7,6 +7,7 @@ const router = Router();
 const fileController = new FileController();
 
 router.post("/uploadFile", 
+    Verification.verifyToken,
     fileController.uploadMiddleware,
     fileController.uploadFile.bind(fileController)
 );

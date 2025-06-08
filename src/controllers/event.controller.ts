@@ -2,6 +2,11 @@ import { Request, Response } from "express";
 import EventService from "../services/event.service";
 import { CreateEventDTO, UpdateEventDTO } from "../models/event.dto";
 import { handleError } from '../utils/errorHandler';
+import { JwtPayload } from 'jsonwebtoken';
+
+interface RequestWithUser extends Request {
+    user?: JwtPayload | string;
+}
 
 class EventController {
   private eventService: EventService;
@@ -35,13 +40,13 @@ class EventController {
     }
   }
 
-  async createEvent(req: Request, res: Response) {
+  async createEvent(req: RequestWithUser, res: Response) {
     try {
       const data: CreateEventDTO = {
         ...req.body,
         startDate: new Date(req.body.startDate),
         endDate: new Date(req.body.endDate),
-        authorId: req.user.id
+        authorId: (req.user as JwtPayload).id
       };
       
       const event = await this.eventService.create(data);
@@ -54,14 +59,14 @@ class EventController {
     }
   }
 
-  async updateEvent(req: Request, res: Response) {
+  async updateEvent(req: RequestWithUser, res: Response) {
     try {
       const id = parseInt(req.params.id);
       const data: UpdateEventDTO = {
         ...req.body,
         startDate: req.body.startDate ? new Date(req.body.startDate) : undefined,
         endDate: req.body.endDate ? new Date(req.body.endDate) : undefined,
-        authorId: req.user.id
+        authorId: (req.user as JwtPayload).id
       };
       
       const event = await this.eventService.update(id, data);
